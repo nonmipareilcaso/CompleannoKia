@@ -35,14 +35,15 @@ function windowResized() {
 
 function draw() {
   background(119, 60, 70);
+  for (let i = 0; i < 3; i++) {
+    thirties[i].display();
+    if (thirties[i].a < 0)
+      thirties[i].reset();
+  }
   push();
   fill(255);
   textSize(scaling / 6);
   textFont(myFont);
-  translate(width / 2, height / 2);
-  rotateX(0);
-  rotateY(0);
-  rotateZ(0);
   text("Tanti Auguri!", 0, 0);
   pop();
   if (confetti.length > 0) {
@@ -52,11 +53,7 @@ function draw() {
         confetti.splice(i, 1);
     }
   }
-  for (let i = 0; i < 3; i++) {
-    thirties[i].display();
-    if (thirties[i].a < 0)
-      thirties[i].reset();
-  }
+  
 }
 
 function mousePressed() {
@@ -75,18 +72,15 @@ function deviceShaken() {
 
 class trenta {
   constructor(_x, _y) {
-    this.x = _x;
-    this.y = _y;
+    this.x = _x - width / 2;
+    this.y = _y - height / 2;
     this.a = random(-20, 0);
     this.delta = 2;
   }
   display() {
     push();
     translate(this.x, this.y);
-    rotateX(0);
-    rotateY(0);
-    rotateZ(0);
-    textSize(30);
+    textSize(scaling / 8);
     textFont(myFont30);
     fill(159, 100, 91, this.a);
     text("30", 0, 0);
@@ -96,8 +90,8 @@ class trenta {
       this.delta = -2;
   }
   reset() {
-    this.x = random(20, width - 20);
-    this.y = random(20, height - 20);
+    this.x = random(20, width - 20) - width/2;
+    this.y = random(20, height - 20) - height/2;
     this.a = random(-20, 0);
     this.delta = +2;
   }
