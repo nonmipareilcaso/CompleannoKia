@@ -1,13 +1,10 @@
 let confetti = [];
 let scaling;
 
-let thirties = [];
 let myFont;
-let myFont30;
 
 function preload() {
   myFont = loadFont('bromello.ttf');
-  myFont30 = loadFont('FredokaOne-Regular.ttf');
 }
 
 function setup() {
@@ -18,11 +15,10 @@ function setup() {
     scaling = width;
   else
     scaling = height;
+  textSize(scaling / 6);
+  textFont(myFont);
   textAlign(CENTER, CENTER);
   noStroke();
-  thirties[0] = new trenta(random(20, width - 20), random(20, height - 20));
-  thirties[1] = new trenta(random(20, width - 20), random(20, height - 20));
-  thirties[2] = new trenta(random(20, width - 20), random(20, height - 20));
 }
 
 function windowResized() {
@@ -35,15 +31,8 @@ function windowResized() {
 
 function draw() {
   background(119, 60, 70);
-  for (let i = 0; i < 3; i++) {
-    thirties[i].display();
-    if (thirties[i].a < 0)
-      thirties[i].reset();
-  }
   push();
   fill(255);
-  textSize(scaling / 6);
-  textFont(myFont);
   text("Tanti Auguri!", 0, 0);
   pop();
   if (confetti.length > 0) {
@@ -67,33 +56,6 @@ function deviceShaken() {
   for(let i = 0; i < 100; i++){
     confetto = new Confetto(((width / 99.0) * i) - (width/2), random(-3 * height, -height - 20), 0, 0);
     confetti.push(confetto);
-  }
-}
-
-class trenta {
-  constructor(_x, _y) {
-    this.x = _x - width / 2;
-    this.y = _y - height / 2;
-    this.a = random(-20, 0);
-    this.delta = 2;
-  }
-  display() {
-    push();
-    translate(this.x, this.y);
-    textSize(scaling / 8);
-    textFont(myFont30);
-    fill(159, 100, 91, this.a);
-    text("30", 0, 0);
-    pop();
-    this.a += this.delta;
-    if (this.a > 255)
-      this.delta = -2;
-  }
-  reset() {
-    this.x = random(20, width - 20) - width/2;
-    this.y = random(20, height - 20) - height/2;
-    this.a = random(-20, 0);
-    this.delta = +2;
   }
 }
 
