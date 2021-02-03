@@ -4,7 +4,7 @@ let scaling;
 let myFont;
 
 function preload() {
-  myFont = loadFont('bromello.ttf');
+  myFont = loadFont('Lemonada-Bold.ttf');
 }
 
 function setup() {
