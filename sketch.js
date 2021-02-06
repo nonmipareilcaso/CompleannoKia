@@ -10,6 +10,7 @@ function preload() {
 function setup() {
   let myCanvas = createCanvas(windowWidth, windowHeight, WEBGL);
   myCanvas.position(0, 0);
+  frameRate(24);
 
   if (width < height)
     scaling = width;
@@ -52,12 +53,12 @@ function mousePressed() {
   }
 }
 
-function deviceShaken() {
-  for(let i = 0; i < 100; i++){
-    confetto = new Confetto(((width / 99.0) * i) - (width/2), random(-3 * height, -height - 20), 0, 0);
-    confetti.push(confetto);
-  }
-}
+//function deviceShaken() {
+//  for(let i = 0; i < 100; i++){
+//    confetto = new Confetto(((width / 99.0) * i) - (width/2), random(-3 * height, -height - 20), 0, 0);
+//    confetti.push(confetto);
+//  }
+//}
 
 class Confetto {
   constructor(_x, _y, _vx, _vy) {
