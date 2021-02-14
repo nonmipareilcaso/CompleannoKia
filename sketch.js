@@ -34,7 +34,10 @@ function draw() {
   background(119, 60, 70);
   push();
   fill(255);
-  text("Tanti Auguri!", width / 2, height / 2);
+  if (width < height)
+    text("tanti\nauguri\nKia!", width / 2, height / 2);
+  else
+    text("tanti auguri Kia!", width / 2, height / 2);
   pop();
   if (confetti.length > 0) {
     for (let i = confetti.length - 1; i >= 0; i--) {
