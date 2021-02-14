@@ -8,15 +8,15 @@ function preload() {
 }
 
 function setup() {
-  let myCanvas = createCanvas(windowWidth, windowHeight, WEBGL);
+  let myCanvas = createCanvas(windowWidth, windowHeight);
   myCanvas.position(0, 0);
-  frameRate(24);
+  frameRate(30);
 
   if (width < height)
     scaling = width;
   else
     scaling = height;
-  textSize(scaling / 6);
+  textSize(scaling / 8);
   textFont(myFont);
   textAlign(CENTER, CENTER);
   noStroke();
@@ -34,7 +34,7 @@ function draw() {
   background(119, 60, 70);
   push();
   fill(255);
-  text("Tanti Auguri!", 0, 0);
+  text("Tanti Auguri!", width / 2, height / 2);
   pop();
   if (confetti.length > 0) {
     for (let i = confetti.length - 1; i >= 0; i--) {
@@ -47,9 +47,11 @@ function draw() {
 }
 
 function mousePressed() {
-  for (let i = 0; i < 30; i++) {
-    confetto = new Confetto(mouseX - width / 2, mouseY - height / 2, random(-3, 3), random(-15, -5));
-    confetti.push(confetto);
+  if (confetti.length < 330){
+    for (let i = 0; i < 30; i++) {
+      confetto = new Confetto(mouseX, mouseY, random(-3, 3), random(-20, -5));
+      confetti.push(confetto);
+    }
   }
 }
 
@@ -66,14 +68,15 @@ class Confetto {
     this.y = _y;
     this.vx = _vx;
     this.vy = _vy;
-    this.ay = 0.3;
+    this.ay = 0.7;
     this.dead = false;
     this.maxvy = 7;
     this.r = random(200, 255);
     this.g = random(200, 255);
     this.b = random(200, 255);
     this.dim = 20;
-    this.rotX = random(PI);
+    this.rotX = random(1);
+    this.deltaRotX = random(0.03, 0.2);
     this.rotY = random(PI);
     if (this.vx < 0)
       this.segno = -1;
@@ -89,18 +92,15 @@ class Confetto {
       this.vy = this.maxvy;
     this.y += this.vy;
     this.x += this.vx;
-    this.rotX += 0.2;
+    this.rotX += this.deltaRotX;
+    if(this.rotX < 0 || this.rotX > 1)
+      this.deltaRotX = -this.deltaRotX;
     this.rotY += this.segno * 0.07;
-
-    if (this.y > height + 10)
+    if ((this.y > height + 10) || (this.x < -10) || (this.x > width + 10))
       this.dead = true;
-
-    translate(this.x, this.y, 0);
-    rotateX(this.rotX);
-    rotateY(this.rotY);
-    circle(0, 0, this.dim);
-    rotateY(-1 * this.rotY);
-    rotateX(-1 * this.rotX);
+    translate(this.x, this.y);
+    rotate(this.rotY);
+    ellipse(0, 0, this.dim, this.dim * this.rotX);
     pop();
   }
 }
