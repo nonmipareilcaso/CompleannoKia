@@ -4,7 +4,7 @@ let scaling;
 let myFont;
 
 function preload() {
-  myFont = loadFont('Lemonada-Bold.ttf');
+  myFont = loadFont('BungeeShade-Regular.ttf');
 }
 
 function setup() {
