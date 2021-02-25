@@ -34,10 +34,13 @@ function draw() {
   background(119, 60, 70);
   push();
   fill(255);
+  textSize(scaling / 8);
   if (width < height)
     text("tanti\nauguri\nKia!", width / 2, height / 2);
   else
     text("tanti auguri Kia!", width / 2, height / 2);
+  textSize(scaling / 16);
+  text("clicca qui", width/2, height - (scaling / 16) - 5);
   pop();
   if (confetti.length > 0) {
     for (let i = confetti.length - 1; i >= 0; i--) {
@@ -50,7 +53,11 @@ function draw() {
 }
 
 function mousePressed() {
-  if (confetti.length < 330){
+  if(mouseY > height - 2 * (scaling / 16))
+    {
+      window.open("https://we.tl/t-BYb4uD6jmt", self);
+    }
+  else if (confetti.length < 330){
     for (let i = 0; i < 30; i++) {
       confetto = new Confetto(mouseX, mouseY, random(-3, 3), random(-20, -5));
       confetti.push(confetto);
